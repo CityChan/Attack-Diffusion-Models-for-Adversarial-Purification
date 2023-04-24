@@ -1,4 +1,4 @@
-# Diffusion Models for Adversarial Purification
+# Attack Diffusion Models for Adversarial Purification
 
 <p align="center">
   <img width="460" height="300" src="./assets/teaser_v7.jpeg">
