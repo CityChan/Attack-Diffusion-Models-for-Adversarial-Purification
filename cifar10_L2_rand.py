@@ -186,24 +186,24 @@ def eval_autoattack(args, config, model, x_val, y_val, adv_batch_size, log_dir):
     # ---------------- apply the attack to classifier ----------------
     print(f'apply the attack to classifier [{args.lp_norm}]...')
     classifier = get_image_classifier(args.classifier_name).to(config.device)
-#     adversary_resnet = AutoAttack(classifier, norm=args.lp_norm, eps=args.adv_eps,
-#                                   version=attack_version, attacks_to_run=[],
-#                                   log_path=f'{log_dir}/log_resnet.txt', device=config.device)
-#     if attack_version == 'custom':
-#         adversary_resnet.apgd.n_restarts = 1
-#         adversary_resnet.fab.n_restarts = 1
-#         adversary_resnet.apgd_targeted.n_restarts = 1
-#         adversary_resnet.fab.n_target_classes = 9
-#         adversary_resnet.apgd_targeted.n_target_classes = 9
-#         adversary_resnet.square.n_queries = 5000
-#     if attack_version == 'rand':
-#         adversary_resnet.apgd.eot_iter = args.eot_iter
-#         print(f'[classifier] rand version with eot_iter: {adversary_resnet.apgd.eot_iter}')
-#     print(f'{args.lp_norm}, epsilon: {args.adv_eps}')
+    adversary_resnet = AutoAttack(classifier, norm=args.lp_norm, eps=args.adv_eps,
+                                  version=attack_version, attacks_to_run=[],
+                                  log_path=f'{log_dir}/log_resnet.txt', device=config.device)
+    if attack_version == 'custom':
+        adversary_resnet.apgd.n_restarts = 1
+        adversary_resnet.fab.n_restarts = 1
+        adversary_resnet.apgd_targeted.n_restarts = 1
+        adversary_resnet.fab.n_target_classes = 9
+        adversary_resnet.apgd_targeted.n_target_classes = 9
+        adversary_resnet.square.n_queries = 5000
+    if attack_version == 'rand':
+        adversary_resnet.apgd.eot_iter = args.eot_iter
+        print(f'[classifier] rand version with eot_iter: {adversary_resnet.apgd.eot_iter}')
+    print(f'{args.lp_norm}, epsilon: {args.adv_eps}')
 
-#     x_adv_resnet = adversary_resnet.run_standard_evaluation(x_val, y_val, bs=adv_batch_size)
-#     print(f'x_adv_renet shape: {x_adv_resnet.shape}')
-#     torch.save([x_adv_resnet, y_val], f'{log_dir}/x_adv_resnet_sd{args.seed}.pt')
+    x_adv_resnet = adversary_resnet.run_standard_evaluation(x_val, y_val, bs=adv_batch_size)
+    print(f'x_adv_renet shape: {x_adv_resnet.shape}')
+    torch.save([x_adv_resnet, y_val], f'{log_dir}/x_adv_resnet_sd{args.seed}.pt')
     
     [x_adv_resnet, y_val] = torch.load(f'{log_dir}/x_adv_resnet_sd{args.seed}.pt')
     save_decoded_CIFAR10(x_adv_resnet.cpu().data, name='./adversarial_samples/cifar10_adv.png')
@@ -227,25 +227,25 @@ def eval_autoattack(args, config, model, x_val, y_val, adv_batch_size, log_dir):
     # ---------------- apply the attack to sde_adv ----------------
     print(f'apply the attack to sde_adv [{args.lp_norm}]...')
     model_.reset_counter()
-#     adversary_sde = AutoAttack(model, norm=args.lp_norm, eps=args.adv_eps,
-#                                version=attack_version, attacks_to_run=[],
-#                                log_path=f'{log_dir}/log_sde_adv.txt', device=config.device)
-#     if attack_version == 'custom':
-#         adversary_sde.apgd.n_restarts = 1
-#         adversary_sde.fab.n_restarts = 1
-#         adversary_sde.apgd_targeted.n_restarts = 1
-#         adversary_sde.fab.n_target_classes = 9
-#         adversary_sde.apgd_targeted.n_target_classes = 9
-#         adversary_sde.square.n_queries = 5000
-#     if attack_version == 'rand':
-#         adversary_sde.apgd.eot_iter = args.eot_iter
-#     print(f'[adv_sde] rand version with eot_iter: {adversary_sde.apgd.eot_iter}')
-#     print(f'{args.lp_norm}, epsilon: {args.adv_eps}')
+    adversary_sde = AutoAttack(model, norm=args.lp_norm, eps=args.adv_eps,
+                               version=attack_version, attacks_to_run=[],
+                               log_path=f'{log_dir}/log_sde_adv.txt', device=config.device)
+    if attack_version == 'custom':
+        adversary_sde.apgd.n_restarts = 1
+        adversary_sde.fab.n_restarts = 1
+        adversary_sde.apgd_targeted.n_restarts = 1
+        adversary_sde.fab.n_target_classes = 9
+        adversary_sde.apgd_targeted.n_target_classes = 9
+        adversary_sde.square.n_queries = 5000
+    if attack_version == 'rand':
+        adversary_sde.apgd.eot_iter = args.eot_iter
+    print(f'[adv_sde] rand version with eot_iter: {adversary_sde.apgd.eot_iter}')
+    print(f'{args.lp_norm}, epsilon: {args.adv_eps}')
 
-#     x_adv_sde = adversary_sde.run_standard_evaluation(x_val, y_val, bs=adv_batch_size)
-#     print(f'x_adv_sde shape: {x_adv_sde.shape}')
-#     torch.save([x_adv_sde, y_val], f'{log_dir}/x_adv_sde_sd{args.seed}.pt')
-#     save_decoded_CIFAR10(x_adv_sde.cpu().data, name='./adversarial_samples/cifar10_diffusion_adv.png')
+    x_adv_sde = adversary_sde.run_standard_evaluation(x_val, y_val, bs=adv_batch_size)
+    print(f'x_adv_sde shape: {x_adv_sde.shape}')
+    torch.save([x_adv_sde, y_val], f'{log_dir}/x_adv_sde_sd{args.seed}.pt')
+    save_decoded_CIFAR10(x_adv_sde.cpu().data, name='./adversarial_samples/cifar10_diffusion_adv.png')
 
     [x_adv_sde, y_val] = torch.load(f'{log_dir}/x_adv_sde_sd{args.seed}.pt')
     
