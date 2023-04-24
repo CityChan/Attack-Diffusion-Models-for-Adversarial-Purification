@@ -1,0 +1,15 @@
+CUDA_VISIBLE_DEVICES=0 python cifar10_L2_rand.py --exp ./exp_results --config cifar10.yml \
+  -i cifar10-robust_adv-$t-eps$adv_eps-64x1-bm0-t0-end1e-5-cont-L2-eot20 \
+  --t 10 \
+  --adv_eps 0.5 \
+  --adv_batch_size 16 \
+  --num_sub 512 \
+  --domain cifar10 \
+  --classifier_name cifar10-resnet-50 \
+  --seed 0 \
+  --data_seed 42 \
+  --diffusion_type sde \
+  --score_type score_sde \
+  --attack_version rand  \
+  --eot_iter 5 \
+  --lp_norm L2 \
