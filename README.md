@@ -43,16 +43,3 @@ Please check the [LICENSE](LICENSE) file. This work may be used non-commercially
 purposes only. For business inquiries, please contact
 [researchinquiries@nvidia.com](mailto:researchinquiries@nvidia.com).
 
-## Citation
-
-Please cite our paper, if you happen to use this codebase:
-
-```
-@inproceedings{nie2022DiffPure,
-  title={Diffusion Models for Adversarial Purification},
-  author={Nie, Weili and Guo, Brandon and Huang, Yujia and Xiao, Chaowei and Vahdat, Arash and Anandkumar, Anima},
-  booktitle = {International Conference on Machine Learning (ICML)},
-  year={2022}
-}
-```
-
